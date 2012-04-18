@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+
+use CGI;
+
+# Klint Instant Messanger Server - Put this on your web server
+
+# ----------------------------------------------------------------------------
+# "THE BEER-WARE LICENSE":
+# Frank Ellis wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return.
+# ----------------------------------------------------------------------------
+
+
+my $q = new CGI;
+print $q->header;
+
+my $datafile = 'kim.dat';
+
+# Parse the message file
+sub getMessages {
+	open (MESSAGES, $datafile) or die $!;
+	my @messages = ();
+	my $message;
+	while (<MESSAGES>) {
+		chomp;
+		my($line) = $_;
+
+		# On one line
+		if ($line =~ /<<<(.*)>>>/) {
+			# Use message
+			$message = $1."\n";
+			push(@messages,$message);
+		# Start of message but no finish
+		} elsif ($line =~ /<<<(.*)/) {
+			# Create a message but don't add it to the list
+			$message = $1."\n";
+		# Only a middle portion of a message
+		} elsif ($line =~ /^((?!>>>).)*$/) {
+			$message .= $line."\n";
+		# The end of a multiline message
+		} else {
+			$line =~ /(.*?)>>>/;
+			$message .= $1;
+			push(@messages,$message);
+		}
+	}
+	close (MESSAGES);
+	return @messages;
+}
+
+sub logo {
+	print '/|==================================================|\ '."\n";
+	print ':|============= KLINT INSTANT MESSAGER =============|: '."\n";
+	print '\|==================================================|/ '."\n";
+}
+
+sub printMessages {
+	my $limit = shift; 
+	my @messages = &getMessages();
+	if ($limit&&@messages>5) {
+		@messages = @messages[(($#messages+1)-$limit)..$#messages];
+	} 
+	for my $message (@messages) {
+		print "$message\n";
+	}
+}
+
+sub writeMessage {
+	my $data = $q->param('data');
+	my $username = $q->param('username');
+	open (MESSAGES, '>>',$datafile);
+	print MESSAGES "<<<$username: $data>>>\n";
+	close (MESSAGES);
+}
+
+sub clearFile {
+	open FH, ">", $datafile;
+	print FH;
+	close FH;
+	print "\nCLEARED ALL DATA\n";
+}
+
+# Start of program
+&logo();
+# Argument logic
+if ($q->param('data')&&$q->param('username')) {
+	&writeMessage();
+	&printMessages($q->param('limit'));
+} else {
+	&printMessages($q->param('limit'));
+}
+
+if ($q->param('clear')) {
+	&clearFile();
+}

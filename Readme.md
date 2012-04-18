@@ -33,22 +33,27 @@ Examples
 --------
 	
 * Send a message:
+
  		./kim -w 'Something to say'
 
 * Read the last five messages:
+
 		./kim -r1 -l5
 	
 * Pipe echo into KIM:
+
 		echo 'Somthing to say' | ./kim
 
 * pipe cat into KIM:
+
 		cat file.txt | ./kim
 
 * Write the last message to file:
+
 		./kim -r1 -l1 >file.txt
 	
 * Clear the history [*]:
-		./kim -c1
 
+		./kim -c1
 
 [*]: All messages go to the same chatroom and 'clear' will empty the chatroom history entirely

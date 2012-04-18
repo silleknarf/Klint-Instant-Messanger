@@ -1,8 +1,5 @@
-<pre>
-/|==================================================|\
-:|============= KLINT INSTANT MESSAGER =============|:
-\|==================================================|/
-</pre>
+KLINT INSTANT MESSAGER
+======================
 
 A minimal terminal chat application that you can pipe into
 

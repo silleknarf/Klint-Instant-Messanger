@@ -3,6 +3,8 @@ Klint Instant Messanger
 
 A minimal terminal chat application that you can pipe into
 
+Licence
+-------
 
 <pre>
 # ----------------------------------------------------------------------------

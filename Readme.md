@@ -4,12 +4,14 @@ Klint Instant Messanger
 A minimal terminal chat application that you can pipe into
 
 
+<pre>
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE":
 # Frank Ellis wrote this file. As long as you retain this notice you
 # can do whatever you want with this stuff. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return.
 # ----------------------------------------------------------------------------
+</pre>
 
 Setup
 -----

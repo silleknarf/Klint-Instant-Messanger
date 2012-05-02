@@ -1,7 +1,7 @@
 Klint Instant Messanger
 =======================
 
-A minimal server for a terminal chat application that you can pipe into
+A Terminal Chat Client that you can pipe into and its backend server.
 
 Licence
 -------
